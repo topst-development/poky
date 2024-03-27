@@ -1,7 +1,7 @@
 require gmp.inc
 
-LICENSE = "LGPLv2.1+ & GPLv2+"
-LICENSE_${PN} = "LGPLv2.1+"
+LICENSE = "LGPL-2.1-or-later & GPL-2.0-or-later"
+LICENSE:${PN} = "LGPL-2.1-or-later"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=892f569a555ba9c07a568a7c0c4fa63a \
                     file://COPYING.LIB;md5=fbc093901857fcd118f065f900982c24 \

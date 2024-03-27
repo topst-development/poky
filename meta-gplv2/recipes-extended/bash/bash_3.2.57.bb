@@ -1,6 +1,6 @@
 require bash.inc
 
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://COPYING;md5=fd5d9bcabd8ed5a54a01ce8d183d592a"
 
 SRC_URI = "${GNU_MIRROR}/${BPN}/${BP}.tar.gz \

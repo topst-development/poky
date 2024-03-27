@@ -2,7 +2,7 @@ SUMMARY = "Pattern matching utilities"
 DESCRIPTION = "The GNU versions of commonly used grep utilities.  The grep command searches one or more input \
 files for lines containing a match to a specified pattern."
 SECTION = "console/utils"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3"
 
 PR = "r2"
@@ -18,6 +18,7 @@ SRC_URI = "${GNU_MIRROR}/grep/grep-${PV}.tar.bz2 \
            file://grep-egrep-fgrep-Fix-LSB-NG-cases.patch \
            file://search-fix-compilation-error-with-security-flags-ena.patch \
            file://0001-Fix-builds-with-gettext-0.20.patch \
+           file://autoconf270.patch \
            "
 
 SRC_URI[md5sum] = "52202fe462770fa6be1bb667bd6cf30c"
@@ -26,13 +27,13 @@ SRC_URI[sha256sum] = "38c8a2bb9223d1fb1b10bdd607cf44830afc92fd451ac4cd07619bf92b
 inherit autotools gettext texinfo
 
 EXTRA_OECONF_INCLUDED_REGEX = "--without-included-regex"
-EXTRA_OECONF_INCLUDED_REGEX_libc-musl = "--with-included-regex"
+EXTRA_OECONF_INCLUDED_REGEX:libc-musl = "--with-included-regex"
 
 EXTRA_OECONF = "--disable-perl-regexp \
                 ${EXTRA_OECONF_INCLUDED_REGEX}"
 
 CFLAGS += "-D PROTOTYPES"
-do_configure_prepend () {
+do_configure:prepend () {
 	rm -f ${S}/m4/init.m4
 	cp -f ${WORKDIR}/Makevars ${S}/po/
 }
@@ -52,7 +53,7 @@ inherit update-alternatives
 
 ALTERNATIVE_PRIORITY = "100"
 
-ALTERNATIVE_${PN} = "grep egrep fgrep"
+ALTERNATIVE:${PN} = "grep egrep fgrep"
 ALTERNATIVE_LINK_NAME[grep] = "${base_bindir}/grep"
 ALTERNATIVE_LINK_NAME[egrep] = "${base_bindir}/egrep"
 ALTERNATIVE_LINK_NAME[fgrep] = "${base_bindir}/fgrep"

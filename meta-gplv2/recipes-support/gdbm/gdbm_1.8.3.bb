@@ -1,7 +1,7 @@
 SUMMARY = "Key/value database library with extensible hashing"
 HOMEPAGE = "http://www.gnu.org/software/gdbm/"
 SECTION = "libs"
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://COPYING;md5=d8e20eece214df8ef953ed5857862150"
 
 PR = "r4"
@@ -18,7 +18,7 @@ inherit autotools texinfo
 
 BBCLASSEXTEND = "native nativesdk"
 
-do_install_append () {
+do_install:append () {
     oe_runmake install-compat DESTDIR=${D}
     install -d ${D}${includedir}/gdbm
     install -m 0644 ${S}/dbm.h ${D}${includedir}/

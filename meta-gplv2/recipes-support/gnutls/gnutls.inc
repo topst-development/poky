@@ -2,17 +2,17 @@ SUMMARY = "GNU Transport Layer Security Library"
 HOMEPAGE = "http://www.gnu.org/software/gnutls/"
 BUGTRACKER = "https://savannah.gnu.org/support/?group=gnutls"
 
-LICENSE = "GPLv3+ & LGPLv2.1+"
-LICENSE_${PN} = "LGPLv2.1+"
-LICENSE_${PN}-xx = "LGPLv2.1+"
-LICENSE_${PN}-bin = "GPLv3+"
-LICENSE_${PN}-openssl = "GPLv3+"
+LICENSE = "GPL-3.0-or-later & LGPL-2.1-or-later"
+LICENSE:${PN} = "LGPL-2.1-or-later"
+LICENSE:${PN}-xx = "LGPL-2.1-or-later"
+LICENSE:${PN}-bin = "GPL-3.0-or-later"
+LICENSE:${PN}-OpenSSL = "GPL-3.0-or-later"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504 \
                     file://COPYING.LESSER;md5=a6f89e2100d9b6cdffcea4f398e37343"
 
 DEPENDS = "nettle gmp virtual/libiconv"
-DEPENDS_append_libc-musl = " argp-standalone"
+DEPENDS:append:libc-musl = " argp-standalone"
 
 SHRT_VER = "${@d.getVar('PV').split('.')[0]}.${@d.getVar('PV').split('.')[1]}"
 
@@ -38,10 +38,9 @@ EXTRA_OECONF = " \
     --with-libpthread-prefix=${STAGING_DIR_HOST}${prefix} \
 "
 
-LDFLAGS_append_libc-musl = " -largp"
-LDFLAGS_append_libc-uclibc = " -luargp -pthread"
+LDFLAGS:append:libc-musl = " -largp"
 
-do_configure_prepend() {
+do_configure:prepend() {
 	for dir in . lib; do
 		rm -f ${dir}/aclocal.m4 ${dir}/m4/libtool.m4 ${dir}/m4/lt*.m4
 	done
@@ -49,8 +48,8 @@ do_configure_prepend() {
 
 PACKAGES =+ "${PN}-openssl ${PN}-xx"
 
-FILES_${PN}-dev += "${bindir}/gnutls-cli-debug"
-FILES_${PN}-openssl = "${libdir}/libgnutls-openssl.so.*"
-FILES_${PN}-xx = "${libdir}/libgnutlsxx.so.*"
+FILES:${PN}-dev += "${bindir}/gnutls-cli-debug"
+FILES:${PN}-openssl = "${libdir}/libgnutls-openssl.so.*"
+FILES:${PN}-xx = "${libdir}/libgnutlsxx.so.*"
 
 BBCLASSEXTEND = "native nativesdk"

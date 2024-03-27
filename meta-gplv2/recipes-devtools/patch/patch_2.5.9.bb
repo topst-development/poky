@@ -1,5 +1,5 @@
 require patch.inc
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 
 SRC_URI += " file://debian.patch \
 	   file://install.patch \

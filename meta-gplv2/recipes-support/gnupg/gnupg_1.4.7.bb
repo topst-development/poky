@@ -3,7 +3,7 @@ HOMEPAGE = "http://www.gnupg.org/"
 DEPENDS = "zlib bzip2 readline"
 SECTION = "console/utils"
 
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=eb723b61539feef013de476e68b5c50a"
 
@@ -20,7 +20,7 @@ SRC_URI = "${GNUPG_MIRROR}/gnupg/gnupg-${PV}.tar.bz2 \
            file://CVE-2013-4242.patch \
            file://fix-ustar-check-issue.patch \
            file://0001-Make-it-build-with-gettext-0.20.patch \
-          "
+           "
 
 SRC_URI[md5sum] = "b06a141cca5cd1a55bbdd25ab833303c"
 SRC_URI[sha256sum] = "69d18b7d193f62ca27ed4febcb4c9044aa0c95305d3258fe902e2fae5fc6468d"
@@ -88,6 +88,10 @@ EXTRA_OECONF = "--disable-ldap \
 BUILD_CFLAGS += "-fgnu89-inline"
 CFLAGS += "-fgnu89-inline"
 
+# Force -fcommon to avoid issues with GCC 10 (which defaults to -fno-common)
+BUILD_CFLAGS += "-fcommon"
+CFLAGS += "-fcommon"
+
 do_install () {
 	autotools_do_install
 	install -d ${D}${docdir}/${BPN}
@@ -96,14 +100,14 @@ do_install () {
 }
 
 # split out gpgv from main package
-RDEPENDS_${PN} = "gpgv"
-RDEPENDS_${PN}_class-native = ""
+RDEPENDS:${PN} = "gpgv"
+RDEPENDS:${PN}:class-native = ""
 
 PACKAGES =+ "gpgv"
-FILES_gpgv = "${bindir}/gpgv"
+FILES:gpgv = "${bindir}/gpgv"
 
 # Exclude debug files from the main packages
-FILES_${PN} = "${bindir}/* ${datadir}/${BPN} ${libexecdir}/${BPN}/*"
+FILES:${PN} = "${bindir}/* ${datadir}/${BPN} ${libexecdir}/${BPN}/*"
 
 PACKAGECONFIG ??= ""
 PACKAGECONFIG[curl] = "--with-libcurl=${STAGING_LIBDIR},--without-libcurl,curl"

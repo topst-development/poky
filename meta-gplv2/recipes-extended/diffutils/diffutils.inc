@@ -6,6 +6,6 @@ SECTION = "base"
 
 inherit autotools texinfo update-alternatives gettext
 
-ALTERNATIVE_${PN} = "diff cmp"
+ALTERNATIVE:${PN} = "diff cmp"
 ALTERNATIVE_PRIORITY = "100"
 

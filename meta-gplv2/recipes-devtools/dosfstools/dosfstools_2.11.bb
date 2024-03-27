@@ -5,7 +5,7 @@ SUMMARY = "DOS FAT Filesystem Utilities"
 HOMEPAGE = "https://github.com/dosfstools/dosfstools"
 
 SECTION = "base"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://mkdosfs/COPYING;md5=cbe67f08d6883bff587f615f0cc81aa8"
 PR = "r5"
 

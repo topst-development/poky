@@ -4,18 +4,18 @@ online information and printed output from a single source file. The \
 GNU Project uses the Texinfo file format for most of its documentation."
 HOMEPAGE = "http://www.gnu.org/software/texinfo/"
 SECTION = "console/utils"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
 
-PROVIDES_append_class-native = " texinfo-4.8-replacement-native"
+PROVIDES:append:class-native = " texinfo-4.8-replacement-native"
 
 DEPENDS = "zlib ncurses texinfo-4.8-replacement-native"
-DEPENDS_class-native = "zlib-native ncurses-native"
+DEPENDS:class-native = "zlib-native ncurses-native"
 
 TARGET_PATCH = "file://use_host_makedoc.patch \
            file://using-native-makeinfo.patch \
 "
-TARGET_PATCH_class-native = ""
+TARGET_PATCH:class-native = ""
 
 SRC_URI = "${GNU_MIRROR}/texinfo/${BP}.tar.gz \
            file://check-locale-h.patch \
@@ -30,25 +30,25 @@ tex_texinfo = "texmf/tex/texinfo"
 
 inherit gettext autotools
 
-do_install_append() {
+do_install:append() {
 	mkdir -p ${D}${datadir}/${tex_texinfo}
 	install -p -m644 ${S}/doc/texinfo.tex ${S}/doc/txi-??.tex ${D}${datadir}/${tex_texinfo}
 }
 
-do_install_append_class-native() {
+do_install:append:class-native() {
 	install -m 755 info/makedoc ${D}${bindir}
 	install -m 755 makeinfo/makeinfo ${D}${bindir}
 }
 
 PACKAGES += "info info-doc"
 
-FILES_info = "${bindir}/info ${bindir}/infokey ${bindir}/install-info"
-FILES_info-doc = "${infodir}/info.info ${infodir}/dir ${infodir}/info-*.info \
+FILES:info = "${bindir}/info ${bindir}/infokey ${bindir}/install-info"
+FILES:info-doc = "${infodir}/info.info ${infodir}/dir ${infodir}/info-*.info \
                   ${mandir}/man1/info.1* ${mandir}/man5/info.5* \
                   ${mandir}/man1/infokey.1* ${mandir}/man1/install-info.1*"
 
-FILES_${PN} = "${bindir}/makeinfo ${bindir}/texi* ${bindir}/pdftexi2dvi ${bindir}/pod2texi ${datadir}/texinfo"
-FILES_${PN}-doc = "${infodir}/texinfo* \
+FILES:${PN} = "${bindir}/makeinfo ${bindir}/texi* ${bindir}/pdftexi2dvi ${bindir}/pod2texi ${datadir}/texinfo"
+FILES:${PN}-doc = "${infodir}/texinfo* \
                    ${datadir}/${tex_texinfo} \
                    ${mandir}/man1 ${mandir}/man5"
 

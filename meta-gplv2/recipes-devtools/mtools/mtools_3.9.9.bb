@@ -2,14 +2,14 @@ SUMMARY = "Utilities to access MS-DOS disks without mounting them"
 DESCRIPTION = "Mtools is a collection of utilities to access MS-DOS disks from GNU and Unix without mounting them."
 HOMEPAGE = "http://www.gnu.org/software/mtools/"
 SECTION = "optional"
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://COPYING;md5=92b58ec77696788ce278b044d2a8e9d3"
 PR = "r6"
 
 DEPENDS += "virtual/libiconv"
 
-RDEPENDS_${PN}_libc-glibc = "glibc-gconv-ibm850"
-RRECOMMENDS_${PN}_libc-glibc = "\
+RDEPENDS:${PN}:libc-glibc = "glibc-gconv-ibm850"
+RRECOMMENDS:${PN}:libc-glibc = "\
 	glibc-gconv-ibm437 \
 	glibc-gconv-ibm737 \
 	glibc-gconv-ibm775 \
@@ -41,14 +41,12 @@ inherit autotools texinfo
 
 EXTRA_OECONF = "--without-x"
 
-LDFLAGS_append_libc-uclibc = " -liconv "
-
 BBCLASSEXTEND = "native nativesdk"
 
 PACKAGECONFIG ??= ""
 PACKAGECONFIG[libbsd] = "ac_cv_lib_bsd_main=yes,ac_cv_lib_bsd_main=no,libbsd"
 
-do_install_prepend () {
+do_install:prepend () {
     # Create bindir to fix parallel installation issues
     mkdir -p ${D}/${bindir}
     mkdir -p ${D}/${datadir}

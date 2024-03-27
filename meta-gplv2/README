@@ -25,5 +25,10 @@ For now, patches should be sent to the Yocto mailing list with [meta-gplv2] in
 the subject line. Before sending, be sure the patches apply cleanly to the
 intended target branch of the Git repository.
 
-    Git repository: http://git.yoctoproject.org/cgit.cgi/meta-gplv2/
-    Mailing list: yocto@yoctoproject.org
+    Git repository: https://git.yoctoproject.org/cgit.cgi/meta-gplv2/
+    Mailing list: yocto@lists.yoctoproject.org
+
+This can be configured within the repository with the commands:
+
+git config sendemail.to yocto@lists.yoctoproject.org
+git config format.subjectprefix "meta-gplv2] [PATCH"

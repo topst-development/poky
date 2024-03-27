@@ -1,6 +1,6 @@
 require gzip.inc
 
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe \
                     file://gzip.h;endline=22;md5=c0934ad1900d927f86556153d4c76d23 \
                     file://lzw.h;endline=19;md5=c273e09a02edd9801cc74d39683049e9 "

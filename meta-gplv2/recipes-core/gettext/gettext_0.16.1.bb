@@ -2,14 +2,14 @@ SUMMARY = "Utilities and libraries for producing multi-lingual messages"
 DESCRIPTION = "GNU gettext is a set of tools that provides a framework to help other programs produce multi-lingual messages. These tools include a set of conventions about how programs should be written to support message catalogs, a directory and file naming organization for the message catalogs themselves, a runtime library supporting the retrieval of translated messages, and a few stand-alone programs to massage in various ways the sets of translatable and already translated strings."
 HOMEPAGE = "http://www.gnu.org/software/gettext/gettext.html"
 SECTION = "libs"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=9ea3144f04c41cd2eada5d3f472e6ea5"
 
 PR = "r6"
 DEPENDS = "virtual/libiconv"
-DEPENDS_class-native = ""
+DEPENDS:class-native = ""
 PROVIDES = "virtual/libintl virtual/gettext"
-PROVIDES_class-native = "virtual/gettext-native"
+PROVIDES:class-native = "virtual/gettext-native"
 
 SRC_URI = "${GNU_MIRROR}/gettext/gettext-${PV}.tar.gz \
            file://gettext-vpath.patch \
@@ -27,8 +27,6 @@ SRC_URI[sha256sum] = "0bf850d1a079fb5a61f0a47b1a9efd35eb44032255375e1cedb0253bc2
 
 PARALLEL_MAKE = ""
 
-LDFLAGS_prepend_libc-uclibc = " -lrt -lpthread "
-
 inherit autotools texinfo
 
 EXTRA_OECONF += "--without-lispdir \
@@ -39,7 +37,7 @@ EXTRA_OECONF += "--without-lispdir \
                  --disable-openmp \
                  --without-emacs \
                 "
-EXTRA_OECONF_append_libc-musl = "\
+EXTRA_OECONF:append:libc-musl = "\
                                  gt_cv_func_gnugettext1_libc=yes \
                                  gt_cv_func_gnugettext2_libc=yes \
                                 "
@@ -48,11 +46,11 @@ acpaths = '-I ${S}/autoconf-lib-link/m4/ \
            -I ${S}/gettext-runtime/m4 \
            -I ${S}/gettext-tools/m4'
 
-do_configure_prepend() {
+do_configure:prepend() {
 	rm -f ${S}/config/m4/libtool.m4
 }
 
-do_install_append_libc-musl () {
+do_install:append:libc-musl () {
 	rm -f ${D}${libdir}/charset.alias
 }
 
@@ -67,30 +65,24 @@ do_install_append_libc-musl () {
 # 4       KiB /ep93xx/libgcc-s-dev_4.2.2-r2_ep93xx.ipk
 
 PACKAGES =+ "libgettextlib libgettextsrc"
-FILES_libgettextlib = "${libdir}/libgettextlib-*.so*"
-FILES_libgettextsrc = "${libdir}/libgettextsrc-*.so*"
+FILES:libgettextlib = "${libdir}/libgettextlib-*.so*"
+FILES:libgettextsrc = "${libdir}/libgettextsrc-*.so*"
 
 PACKAGES =+ "gettext-runtime gettext-runtime-dev gettext-runtime-staticdev gettext-runtime-doc"
 
-FILES_${PN} += "${libdir}/${BPN}/*"
+FILES:${PN} += "${libdir}/${BPN}/*"
 
-FILES_gettext-runtime = "${bindir}/gettext \
+FILES:gettext-runtime = "${bindir}/gettext \
                          ${bindir}/ngettext \
                          ${bindir}/envsubst \
                          ${bindir}/gettext.sh \
                          ${libdir}/libasprintf${SODEV} \
                          ${libdir}/GNU.Gettext.dll \
                         "
-FILES_gettext-runtime_append_libc-uclibc = " ${libdir}/libintl.so.* \
-                                             ${libdir}/charset.alias \
-                                           "
-FILES_gettext-runtime-staticdev += "${libdir}/libasprintf.a"
-FILES_gettext-runtime-dev += "${includedir}/autosprintf.h \
+FILES:gettext-runtime-staticdev += "${libdir}/libasprintf.a"
+FILES:gettext-runtime-dev += "${includedir}/autosprintf.h \
                               ${libdir}/libasprintf${SOLIBDEV}"
-FILES_gettext-runtime-dev_append_libc-uclibc = " ${libdir}/libintl.so \
-                                                 ${includedir}/libintl.h \
-                                               "
-FILES_gettext-runtime-doc = "${mandir}/man1/gettext.* \
+FILES:gettext-runtime-doc = "${mandir}/man1/gettext.* \
                              ${mandir}/man1/ngettext.* \
                              ${mandir}/man1/envsubst.* \
                              ${mandir}/man1/.* \
@@ -105,11 +97,11 @@ FILES_gettext-runtime-doc = "${mandir}/man1/gettext.* \
                              ${infodir}/autosprintf.info \
                             "
 
-do_install_append() {
+do_install:append() {
     rm -f ${D}${libdir}/preloadable_libintl.so
 }
 
-do_install_append_class-native () {
+do_install:append:class-native () {
 	rm ${D}${datadir}/aclocal/*
 	rm ${D}${datadir}/gettext/config.rpath
 	rm ${D}${datadir}/gettext/po/Makefile.in.in
@@ -120,6 +112,6 @@ do_install_append_class-native () {
 # available, and we don't want to use older macros from the target gettext in
 # a non-gplv3 build, so kill them and let dependent recipes rely on
 # gettext-native.
-SYSROOT_DIRS_BLACKLIST += "${datadir}/aclocal"
+SYSROOT_DIRS_IGNORE += "${datadir}/aclocal"
 
 BBCLASSEXTEND = "native nativesdk"

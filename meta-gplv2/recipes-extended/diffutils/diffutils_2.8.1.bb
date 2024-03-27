@@ -1,4 +1,4 @@
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
 
 require diffutils.inc
@@ -21,6 +21,6 @@ CACHED_CONFIGUREVARS = "\
     jm_cv_func_working_realloc=yes \
 "
 
-do_configure_prepend () {
+do_configure:prepend () {
 	chmod u+w ${S}/po/Makefile.in.in
 }

@@ -33,11 +33,11 @@
 # UBOOT_EXTLINUX_DEFAULT_LABEL ??= "Linux Default"
 # UBOOT_EXTLINUX_TIMEOUT ??= "30"
 #
-# UBOOT_EXTLINUX_KERNEL_IMAGE_default ??= "../zImage"
-# UBOOT_EXTLINUX_MENU_DESCRIPTION_default ??= "Linux Default"
+# UBOOT_EXTLINUX_KERNEL_IMAGE:default ??= "../zImage"
+# UBOOT_EXTLINUX_MENU_DESCRIPTION:default ??= "Linux Default"
 #
-# UBOOT_EXTLINUX_KERNEL_IMAGE_fallback ??= "../zImage-fallback"
-# UBOOT_EXTLINUX_MENU_DESCRIPTION_fallback ??= "Linux Fallback"
+# UBOOT_EXTLINUX_KERNEL_IMAGE:fallback ??= "../zImage-fallback"
+# UBOOT_EXTLINUX_MENU_DESCRIPTION:fallback ??= "Linux Fallback"
 #
 # Results:
 #
@@ -64,7 +64,7 @@ UBOOT_EXTLINUX_FDT ??= ""
 UBOOT_EXTLINUX_FDTDIR ??= "../"
 UBOOT_EXTLINUX_KERNEL_IMAGE ??= "../${KERNEL_IMAGETYPE}"
 UBOOT_EXTLINUX_KERNEL_ARGS ??= "rootwait rw"
-UBOOT_EXTLINUX_MENU_DESCRIPTION_linux ??= "${DISTRO_NAME}"
+UBOOT_EXTLINUX_MENU_DESCRIPTION:linux ??= "${DISTRO_NAME}"
 
 UBOOT_EXTLINUX_CONFIG = "${B}/extlinux.conf"
 

@@ -1,6 +1,6 @@
 require m4.inc
 
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe\
 	file://examples/COPYING;md5=1d49bd61dc590f014cae7173b43e3e5c"
@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe\
 PR = "r2"
 SRC_URI += "file://fix_for_circular_dependency.patch"
 
-SRC_URI_append_class-target = "\
+SRC_URI:append:class-target = "\
     file://0001-freeze-fix-compilation-error-with-security-flags-ena.patch \
     file://0002-build-don-t-need-charset.alias-when-building-for-mus.patch \
 "

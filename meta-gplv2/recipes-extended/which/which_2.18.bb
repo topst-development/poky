@@ -6,7 +6,7 @@ It does this by using the exact same algorithm as bash."
 SECTION = "libs"
 HOMEPAGE = "http://carlo17.home.xs4all.nl/which/"
 
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
 
 PR = "r2"
@@ -23,12 +23,12 @@ DEPENDS = "cwautomacros-native"
 
 inherit autotools texinfo update-alternatives
 
-do_configure_prepend() {
+do_configure:prepend() {
 	OLD="@ACLOCAL_CWFLAGS@"
 	NEW="-I ${STAGING_DIR_NATIVE}/${datadir}/cwautomacros/m4"
 	sed -i "s#${OLD}#${NEW}#g" `grep -rl ${OLD} ${S}`
 }
 
-ALTERNATIVE_${PN} = "which"
+ALTERNATIVE:${PN} = "which"
 ALTERNATIVE_PRIORITY = "100"
 

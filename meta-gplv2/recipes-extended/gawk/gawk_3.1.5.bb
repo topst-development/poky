@@ -8,11 +8,11 @@ SECTION = "console/utils"
 
 # gawk <= 3.1.5: GPLv2
 # gawk >= 3.1.6: GPLv3
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552"
 
-RDEPENDS_gawk += "gawk-common"
-RDEPENDS_pgawk += "gawk-common"
+RDEPENDS:gawk += "gawk-common"
+RDEPENDS:pgawk += "gawk-common"
 PR = "r2"
 
 SRC_URI = "\
@@ -28,17 +28,17 @@ inherit autotools gettext texinfo update-alternatives
 
 PACKAGES += "gawk-common pgawk"
 
-FILES_${PN} = "${bindir}/gawk* ${bindir}/igawk"
-FILES_gawk-common += "${datadir}/awk/* ${libexecdir}/awk/*"
-FILES_pgawk = "${bindir}/pgawk*"
+FILES:${PN} = "${bindir}/gawk* ${bindir}/igawk"
+FILES:gawk-common += "${datadir}/awk/* ${libexecdir}/awk/*"
+FILES:pgawk = "${bindir}/pgawk*"
 
-ALTERNATIVE_${PN} = "awk"
+ALTERNATIVE:${PN} = "awk"
 ALTERNATIVE_TARGET[awk] = "${bindir}/gawk"
 ALTERNATIVE_PRIORITY = "100"
 
 CFLAGS += "-D PROTOTYPES"
 
-do_install_append() {
+do_install:append() {
 	# remove the link since we don't package it
 	rm ${D}${bindir}/awk
 }

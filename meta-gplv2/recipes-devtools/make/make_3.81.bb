@@ -1,6 +1,6 @@
 PR = "r1"
 
-LICENSE = "GPLv2 & LGPLv2"
+LICENSE = "GPL-2.0-only & LGPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=361b6b837cad26c6900a926b62aada5f \
                     file://tests/COPYING;md5=8ca43cbc842c2336e835926c2166c28b \
                     file://glob/COPYING.LIB;md5=4a770b67e6be0f60da244beb2de0fce4"

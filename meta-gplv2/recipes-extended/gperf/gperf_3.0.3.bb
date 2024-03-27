@@ -1,6 +1,6 @@
 require gperf.inc
 
-LICENSE  = "GPLv2+"
+LICENSE  = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://COPYING;md5=a5f84abb0070adf8a0925d7d534b6e0a \
                     file://src/main.cc;beginline=8;endline=19;md5=72a3034a19e72f08ee48ef8244a121fd"
 

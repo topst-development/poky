@@ -15,7 +15,7 @@ inherit autotools ptest
 
 EXTRA_OECONF = "--disable-openssl"
 
-do_configure_prepend() {
+do_configure:prepend() {
        if [ ! -e ${S}/acinclude.m4 -a -e ${S}/aclocal.m4 ]; then
                cp ${S}/aclocal.m4 ${S}/acinclude.m4
        fi
